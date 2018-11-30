@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FlashMessagesService } from "angular2-flash-messages";
 
+import { ClientService } from '../_services'
 import { Client } from '../_models';
 
 @Component({
@@ -23,7 +26,11 @@ export class ClientAddComponent implements OnInit {
 
   disableBalanceOnAdd: boolean = true;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private flashMessage: FlashMessagesService,
+    private clientService: ClientService,
+    private router: Router) { }
 
   ngOnInit() {
     this.clientForm = this.fb.group({
@@ -31,7 +38,7 @@ export class ClientAddComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['test@test.com', Validators.compose([Validators.required, Validators.email])],
       phone: ['', Validators.required],
-      balance: ['']
+      balance: [{value: '', disable: true}]
     });
   }
 
@@ -39,16 +46,16 @@ export class ClientAddComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    
     if(this.clientForm.invalid) {
+      this.flashMessage.show('Please fill out the form correctly', { cssClass: 'alert-danger', timeout: '4000' })
       return;
+    } else {
+      this.loading = true;
+      this.Client = this.clientForm.value;
+      this.clientService.create(this.Client);
+      this.router.navigate(['/']);
+      this.flashMessage.show('New Client added', { cssClass: 'alert-success', timeout: '4000' });
     }
-
-    this.Client = this.clientForm.value;
-
-    console.log(this.Client)
-
-    this.loading = true;
   }
-
 }
