@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from "@angular/forms";
 import { environment } from "../environments/environment";
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -39,7 +40,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

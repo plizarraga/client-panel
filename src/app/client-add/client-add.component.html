@@ -1,3 +1,34 @@
-<p>
-  client-add works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <a [routerLink]="['/']"> Back To Dashboard</a>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">Add Client</div>
+  <div class="card-body">
+    <form [formGroup]="clientForm" (ngSubmit)=onSubmit() novalidate>
+      <div class="form-group">
+        <label>First Name</label>
+        <input formControlName="firstName" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName?.errors }" aria-describedby="firstNameHelp" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input formControlName="lastName" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName?.errors }" aria-describedby="lastNameHelp">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input formControlName="email" type="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email?.errors }" aria-describedby="emailHelp">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input formControlName="phone" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone?.errors }" aria-describedby="phoneHelp">
+      </div>
+      <div class="form-group">
+        <label>Balance</label>
+        <input formControlName="balance" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.balance?.errors }" aria-describedby="balanceHelp">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
