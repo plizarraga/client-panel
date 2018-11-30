@@ -1,3 +1,54 @@
-<p>
-  client-details works!
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <a [routerLink]="['/']" routerLinkActive="router-link-active" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back To Dashboard</a>
+  </div>
+  <div class="col-md-6 text-right">
+    <div class="btn-group">
+      <a [routerLink]="['/client/edit', id]" class="btn btn-dark">Edit</a>
+      <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row" *ngIf="client">
+  <div class="col-md-12">
+    <div class="card">
+      <h3 class="card-header">{{ client.firstName }} {{ client.lastName }}</h3>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 offset-md-6 col-sm-12 text-right">
+              <h3 class="text-right">
+                Balance:
+                <span [ngClass]="{ 'text-success': hasBalance, 'text-danger': !hasBalance }">
+                  {{ client.balance | currency:"USD":"symbol"}}
+                </span>
+                <small>
+                  <a (click)="showBalanceUpdateInput = !showBalanceUpdateInput"><i class="fa fa-pencil"></i></a>
+                </small>
+              </h3>
+              <div class="">
+                <form [formGroup]="balanceForm" *ngIf="showBalanceUpdateInput" (ngSubmit)="onUpdateBalance()">
+                  <div class="input-group">
+                    <input formControlName="balance" type="number" class="form-control">
+                    <span class="input-group-btn">
+                      <button type="submit" class="btn btn-primary">Update</button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Email:</strong> {{ client.email }}</li>
+              <li class="list-group-item"><strong>Phone:</strong> {{ client.phone }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

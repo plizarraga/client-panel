@@ -38,7 +38,7 @@ export class ClientAddComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['test@test.com', Validators.compose([Validators.required, Validators.email])],
       phone: ['', Validators.required],
-      balance: [{value: 0, disabled: this.disableBalanceOnAdd}]
+      balance: [{ value: 0, disabled: this.disableBalanceOnAdd }]
     });
   }
 
@@ -53,7 +53,7 @@ export class ClientAddComponent implements OnInit {
     } else {
       this.loading = true;
       this.Client = this.clientForm.value;
-      this.Client.balance = this.Client.balance || 0; 
+      this.Client.balance = this.Client.balance || 0;
       this.clientService.create(this.Client);
       this.router.navigate(['/']);
       this.flashMessage.show('New Client added', { cssClass: 'alert-success', timeout: '4000' });
