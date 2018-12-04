@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlashMessagesService } from "angular2-flash-messages";
 
-import { ClientService } from '../_services'
+import { ClientService, SettingsService } from '../_services'
 import { Client } from '../_models';
 
 @Component({
@@ -30,13 +30,16 @@ export class ClientAddComponent implements OnInit {
     private fb: FormBuilder,
     private flashMessage: FlashMessagesService,
     private clientService: ClientService,
+    private settingservice: SettingsService,
     private router: Router) { }
 
   ngOnInit() {
+    this.disableBalanceOnAdd = this.settingservice.getSettings().disableBalanceOnAdd;
+
     this.clientForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['test@test.com', Validators.compose([Validators.required, Validators.email])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       phone: ['', Validators.required],
       balance: [{ value: 0, disabled: this.disableBalanceOnAdd }]
     });

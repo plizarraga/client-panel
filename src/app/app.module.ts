@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClientService, AuthService, SettingsService } from './_services'
 
 @NgModule({
   declarations: [
@@ -40,12 +41,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireModule,
+    AngularFireAuthModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
     FlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthService, ClientService, SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

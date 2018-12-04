@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FlashMessagesService } from "angular2-flash-messages";
+import { AuthService } from "../_services/";
 
 @Component({
   selector: 'app-login',
@@ -6,10 +10,54 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  submitted: boolean = false;
+  loading: boolean = false;
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    private flashMessage: FlashMessagesService,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
+
+    this.authService.isAuth()
+      .subscribe(auth => {
+        if (auth) {
+          this.router.navigate(['/'])
+        }
+      });
+
+    this.loginForm = this.fb.group({
+      email: ['plizarraga86@gmail.com', Validators.compose([Validators.required, Validators.email])],
+      password: ['123456', Validators.required]
+    });
   }
 
+  get f() { return this.loginForm.controls };
+
+  onSubmit() {
+    this.submitted = true;
+
+    if(this.loginForm.invalid) {
+      console.log('invalid form')
+      return;
+    } else {
+      this.loading = true;
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      this.authService.login(email, password)
+        .then(res => {
+          console.log(res)
+          this.flashMessage.show('You are now loged in', { cssClass: 'alert-success', timeout: 4000})
+          this.router.navigate(['/']);
+        })
+        .catch(err => {
+          this.flashMessage.show('Invalid email or password', { cssClass: 'alert-danger', timeout: 4000})
+          console.log(err)
+        })
+    }
+  }
 }

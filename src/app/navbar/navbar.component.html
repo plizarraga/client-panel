@@ -7,22 +7,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li *ngIf="isAuth" class="nav-item">
           <a class="nav-link"[routerLink]="['/']">Dashboard</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link"[routerLink]="['/register']" routerLinkActive="active" >Register</a>
+        <li *ngIf="!isAuth" class="nav-item">
+          <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active" >Register</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link"[routerLink]="['/login']" routerLinkActive="active" >Login</a>
+        <li *ngIf="!isAuth" class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active" >Login</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Logout</a>
+        <li *ngIf="isAuth" class="nav-item">
+            <a class="nav-link">{{ currentUser }}</a>
+          </li>
+        <li *ngIf="isAuth" class="nav-item">
+          <a class="nav-link disabled" [routerLink]="['/settings']" routerLinkActive="active" >Settings</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled"[routerLink]="['/settings']" routerLinkActive="active" >Settings</a>
+        <li *ngIf="isAuth" class="nav-item">
+          <a class="nav-link disabled" href="#" (click)="onLogout()">Logout</a>
         </li>
       </ul>
     </div>
