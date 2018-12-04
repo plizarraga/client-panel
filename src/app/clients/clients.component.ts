@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { ClientService } from '../_services'
 import { Client } from '../_models';
@@ -17,7 +16,6 @@ export class ClientsComponent implements OnInit {
   ngOnInit() {
     this.clientService.getAll()
       .subscribe(clients => {
-        console.log(clients);
         this.clients = clients;
         this.getTotalOwed();
       });

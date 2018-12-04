@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FlashMessagesService } from "angular2-flash-messages";
 
 import { ClientService } from '../_services'
 import { Client } from '../_models';
-import { timeout } from 'q';
 
 @Component({
   selector: 'app-client-details',
@@ -38,13 +37,11 @@ export class ClientDetailsComponent implements OnInit {
         this.balanceForm = this.fb.group({
           balance: [this.client ? this.client.balance : 0]
         });
-        console.log(this.client);
       });
   }
 
   onUpdateBalance() {
     this.client.balance = this.balanceForm.value.balance;
-    console.log(this.client)
     this.clientService.update(this.client);
     this.showBalanceUpdateInput = false;
     this.flashMessage.show('Balance Updated', { cssClass: 'alert-success', timeout: 4000 } )

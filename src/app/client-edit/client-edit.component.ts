@@ -42,7 +42,6 @@ export class ClientEditComponent implements OnInit {
 
     this.clientService.getById(this.id)
       .subscribe(client => {
-        console.log(client)
         this.client = client;
         this.clientForm.controls.firstName.setValue(client.firstName);
         this.clientForm.controls.lastName.setValue(client.lastName);

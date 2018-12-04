@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if(this.loginForm.invalid) {
-      console.log('invalid form')
       return;
     } else {
       this.loading = true;
@@ -50,8 +49,6 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(email, password)
         .then(res => {
-          console.log(res)
-          this.flashMessage.show('You are now loged in', { cssClass: 'alert-success', timeout: 4000})
           this.router.navigate(['/']);
         })
         .catch(err => {
