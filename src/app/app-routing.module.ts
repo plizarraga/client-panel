@@ -10,12 +10,12 @@ import { ClientAddComponent } from "./client-add/client-add.component";
 import { ClientEditComponent } from "./client-edit/client-edit.component";
 import { ClientDetailsComponent } from "./client-details/client-details.component";
 
-import { AuthGuard } from "./_guards/auth.guard";
+import { AuthGuard, RegisterGuard } from "./_guards"
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [RegisterGuard] },
   { path: 'client/add', component: ClientAddComponent, canActivate: [AuthGuard] },
   { path: 'client/edit/:id', component: ClientEditComponent, canActivate: [AuthGuard] },
   { path: 'client/:id', component: ClientDetailsComponent, canActivate: [AuthGuard] },

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from "../_services/";
+import { AuthService, SettingsService } from "../_services/";
 
 @Component({
   selector: 'app-navbar',
@@ -8,13 +8,20 @@ import { AuthService } from "../_services/";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
   isAuth: boolean = false;
   currentUser;
+  showRegister: boolean;
+
   constructor(
     private authService: AuthService,
+    private settingsService: SettingsService,
     private router: Router) { }
 
   ngOnInit() {
+
+    this.showRegister = this.settingsService.getSettings().allowRegistration;
+
     this.authService.isAuth()
     .subscribe(auth => {
       if (auth) {
