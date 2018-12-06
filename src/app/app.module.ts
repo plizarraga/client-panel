@@ -20,7 +20,8 @@ import { RegisterComponent } from './register/register.component';
 import { SettingsComponent } from './settings/settings.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ClientService, AuthService, SettingsService } from './_services'
+import { ClientService, AuthService, SettingsService } from './_services';
+import { ServiceWorkerModule } from '@angular/service-worker'
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ClientService, AuthService, SettingsService } from './_services'
     AngularFireAuthModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthService, ClientService, SettingsService],
   bootstrap: [AppComponent]
